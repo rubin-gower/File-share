@@ -1,0 +1,12 @@
+.file {
+    width: 120px;
+    height: 160px;
+    background-color: gray;
+    margin: 10px;
+    float: left;
+}
+.img-file{
+ width: 100px;
+ margin-left: auto;
+ margin-right: auto;
+}
