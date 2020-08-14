@@ -560,20 +560,20 @@ var Upload = /*#__PURE__*/function (_React$Component) {
     _this = _super.call.apply(_super, [this].concat(args));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      uploads: ["img", "file"]
+      uploads: []
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleChange", function () {
       console.log("file uploaded");
-      console.log(event.target.files);
+      console.log(event.target.files[0]);
 
       _this.setState({
-        uploads: [].concat(_toConsumableArray(_this.state.uploads), [event.target.files])
+        uploads: [].concat(_toConsumableArray(_this.state.uploads), [event.target.files[0]])
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleFinnish", function () {
-      console.log(document.getElementById("file-input").files);
+      console.log(_this.state.uploads);
     });
 
     return _this;
@@ -591,7 +591,26 @@ var Upload = /*#__PURE__*/function (_React$Component) {
         onClick: this.handleFinnish
       }, "Done"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "uploads"
-      }));
+      }, this.state.uploads.map(function (elem, i) {
+        console.log(elem.type);
+        console.log(elem.type.includes("image"));
+
+        if (elem.type.includes("image")) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: i,
+            className: "file"
+          }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: URL.createObjectURL(elem),
+            alt: "ur img",
+            className: "img-file"
+          }), " ", elem.name);
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: i,
+            className: "file"
+          }, " ", elem.name);
+        }
+      })));
     }
   }]);
 

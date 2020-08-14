@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Link, Redirect } from "react-router-dom"
 
 class Upload extends React.Component {
     state = {
-        uploads: ["img", "file"]
+        uploads: []
     }
 
     // componentDidMount() {
@@ -17,13 +17,14 @@ class Upload extends React.Component {
 
     handleChange = () => {
         console.log("file uploaded")
-        console.log(event.target.files)
+        console.log(event.target.files[0])
         this.setState({
-            uploads: [...this.state.uploads, event.target.files] 
+            uploads: [...this.state.uploads, event.target.files[0]]
         })
     }
     handleFinnish = () => {
-        console.log(document.getElementById("file-input").files)
+
+        console.log(this.state.uploads)
     }
     render() {
         return (<>
@@ -31,7 +32,18 @@ class Upload extends React.Component {
 
             <input type="file" id="file-input" multiple onChange={this.handleChange} />
             <button onClick={this.handleFinnish}>Done</button>
-        <div className="uploads"></div>
+            <div className="uploads">{this.state.uploads.map((elem, i) => {
+                console.log(elem.type)
+                console.log((elem.type).includes("image"))
+                if ((elem.type).includes("image")) {
+                   
+                    return <div key={i} className="file"> <img src={URL.createObjectURL(elem)} alt="ur img" className="img-file"/> {elem.name}</div>
+                }
+                else {
+                    return <div key={i} className="file"> {elem.name}</div>
+                }
+                
+            })}</div>
         </>);
     }
 }
