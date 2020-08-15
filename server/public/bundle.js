@@ -101,8 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Camera__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Camera */ "./client/components/Camera.jsx");
 /* harmony import */ var _Download__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Download */ "./client/components/Download.jsx");
 /* harmony import */ var _Upload__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Upload */ "./client/components/Upload.jsx");
-/* harmony import */ var _LinkPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./LinkPage */ "./client/components/LinkPage.jsx");
-/* harmony import */ var _Home__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Home */ "./client/components/Home.jsx");
+/* harmony import */ var _Home__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Home */ "./client/components/Home.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -126,7 +125,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -177,12 +175,8 @@ var App = /*#__PURE__*/function (_React$Component) {
         component: _Upload__WEBPACK_IMPORTED_MODULE_4__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         exact: true,
-        path: "/LinkPage",
-        component: _LinkPage__WEBPACK_IMPORTED_MODULE_5__["default"]
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-        exact: true,
         path: "/",
-        component: _Home__WEBPACK_IMPORTED_MODULE_6__["default"]
+        component: _Home__WEBPACK_IMPORTED_MODULE_5__["default"]
       }));
     }
   }]);
@@ -484,7 +478,9 @@ var LinkPage = /*#__PURE__*/function (_React$Component) {
   _createClass(LinkPage, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "linkpage");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "linkpage", console.log(window.location.origin), "link: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: window.location.origin + "/#/Download/" + this.props.rndURL
+      }, window.location.origin + "/#/Download/" + this.props.rndURL));
     }
   }]);
 
@@ -507,6 +503,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _LinkPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./LinkPage */ "./client/components/LinkPage.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -546,6 +543,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var Upload = /*#__PURE__*/function (_React$Component) {
   _inherits(Upload, _React$Component);
 
@@ -564,7 +562,26 @@ var Upload = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       uploads: [],
-      toatalSize: 0
+      toatalSize: 0,
+      done: false,
+      rndURL: ""
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createUrl", function () {
+      var chars = "qwertyuiopasdfghjklzxcvbnm";
+      var newUrl = "";
+
+      for (var i = 0; i < 10; i++) {
+        newUrl += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+
+      console.log(newUrl);
+
+      _this.setState({
+        rndURL: newUrl
+      });
+
+      return newUrl;
     });
 
     _defineProperty(_assertThisInitialized(_this), "eventFunction", function (e) {
@@ -638,9 +655,13 @@ var Upload = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleFinnish", function () {
-      console.log(_this.state.uploads);
+      var id = _this.createUrl();
 
-      _this.props.history.push("/LinkPage");
+      console.log(_this.state.uploads); // this.props.history.push(`/LinkPage/${id}`);
+
+      _this.setState({
+        done: true
+      });
     });
 
     return _this;
@@ -659,7 +680,9 @@ var Upload = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "upload", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "upload", this.state.done ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LinkPage__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        rndURL: this.state.rndURL
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "drop-zone",
         onDrop: this.handleDrop,
         onDragOver: this.handleDrag
@@ -691,7 +714,7 @@ var Upload = /*#__PURE__*/function (_React$Component) {
             className: "file"
           }, " ", elem.name);
         }
-      })));
+      }))));
     }
   }]);
 

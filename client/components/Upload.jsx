@@ -1,11 +1,13 @@
 import React from 'react';
 import { HashRouter as Router, Route, Link, Redirect } from "react-router-dom"
-
+import LinkPage from "./LinkPage"
 
 class Upload extends React.Component {
     state = {
         uploads: [],
         toatalSize: 0,
+        done: false,
+        rndURL: "",
     }
 
     componentDidMount() {
@@ -15,6 +17,19 @@ class Upload extends React.Component {
     componentWillUnmount() {
         window.removeEventListener("beforeunload", this.eventFunction)
     }
+
+    createUrl = ()=>{
+        let chars = "qwertyuiopasdfghjklzxcvbnm"
+        let newUrl = ""
+        for(let i=0; i<10;i++) {
+            newUrl += chars.charAt(Math.floor(Math.random()* chars.length) )
+        }
+        console.log(newUrl)
+        this.setState({rndURL: newUrl})
+       return newUrl
+       
+    }
+
     eventFunction = (e) => {
         if (this.state.uploads.length > 0) {
             var confirmationMessage = 'You did not upload your files '
@@ -83,13 +98,17 @@ class Upload extends React.Component {
 
     }
     handleFinnish = () => {
-
+        let id = this.createUrl()
         console.log(this.state.uploads)
-        this.props.history.push("/LinkPage");
+       // this.props.history.push(`/LinkPage/${id}`);
+       this.setState({done: true})
     }
     render() {
         return (<>
             upload
+            {this.state.done ?  <LinkPage rndURL={this.state.rndURL}/> 
+            :
+            <>
             <div id="drop-zone" onDrop={this.handleDrop} onDragOver={this.handleDrag}>
                 <p>Drag files</p>
             </div>
@@ -108,6 +127,7 @@ class Upload extends React.Component {
                 }
 
             })}</div>
+            </>}
         </>);
     }
 }
