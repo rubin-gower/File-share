@@ -5,6 +5,11 @@ class LinkPage extends React.Component {
     render() { 
         return ( <>
         linkpage
+      
+       
+        {console.log( window.location.origin )}
+        link: <a href={window.location.origin +"/#/Download/"+ this.props.rndURL}>{window.location.origin +"/#/Download/"+ this.props.rndURL}</a> 
+        
         </> );
     }
 }

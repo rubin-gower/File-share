@@ -7,7 +7,7 @@ class Home extends React.Component {
         home
             <h1>File shear</h1>
             <div className="upload-button"><Link to="/Upload">Upload</Link></div>
-            <div className="download-button"><Link to="/Camera">Download</Link></div>
+            <div className="download-button"><Link to="/Download">Download</Link></div>
         </>)
     }
 }
