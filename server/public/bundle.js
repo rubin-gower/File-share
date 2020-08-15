@@ -570,7 +570,13 @@ var Upload = /*#__PURE__*/function (_React$Component) {
       var files = [];
 
       for (var i = 0; i < event.target.files.length; i++) {
-        files.push(event.target.files[i]);
+        var names = _this.state.uploads.map(function (elem) {
+          return elem.name;
+        });
+
+        if (names.includes(event.target.files[i].name)) alert("multiple files cant have the same name");else {
+          files.push(event.target.files[i]);
+        }
       }
 
       _this.setState({
@@ -587,8 +593,16 @@ var Upload = /*#__PURE__*/function (_React$Component) {
         var files = [];
 
         for (var i = 0; i < event.dataTransfer.items.length; i++) {
+          var _file = event.dataTransfer.items[i].getAsFile();
+
           if (event.dataTransfer.items[i].kind === 'file') {
-            files.push(event.dataTransfer.items[i].getAsFile());
+            var names = _this.state.uploads.map(function (elem) {
+              return elem.name;
+            });
+
+            if (names.includes(_file.name)) alert("multiple files cant have the same name");else {
+              files.push(_file);
+            }
           }
         }
 

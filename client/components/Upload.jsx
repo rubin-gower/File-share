@@ -19,9 +19,16 @@ class Upload extends React.Component {
     handleChange = () => {
         console.log("file uploaded")
         //console.log(event.target.files[0])
-        let files=[]
+        let files = []
         for (let i = 0; i < event.target.files.length; i++) {
-            files.push(event.target.files[i])
+
+            let names = this.state.uploads.map(elem => { return elem.name })
+            if (names.includes(event.target.files[i].name)) alert("multiple files cant have the same name")
+            else {
+                files.push(event.target.files[i])
+            }
+
+
         }
         this.setState({
             uploads: [...this.state.uploads, ...files]
@@ -32,31 +39,39 @@ class Upload extends React.Component {
         console.log("droped files")
         if (event.dataTransfer.items) {
             // Use DataTransferItemList interface to access the file(s)
-            let files=[]
+            let files = []
             for (var i = 0; i < event.dataTransfer.items.length; i++) {
-              if (event.dataTransfer.items[i].kind === 'file') {
-                files.push(event.dataTransfer.items[i].getAsFile())
-              }
+                let file = event.dataTransfer.items[i].getAsFile()
+                if (event.dataTransfer.items[i].kind === 'file') {
+
+                    let names = this.state.uploads.map(elem => { return elem.name })
+                    if (names.includes(file.name)) alert("multiple files cant have the same name")
+                    else {
+                        files.push(file)
+                    }
+
+
+                }
             }
             this.setState({
                 uploads: [...this.state.uploads, ...files]
             })
-    
-          } else {
+
+        } else {
             // Use DataTransfer interface to access the file(s)
             for (var i = 0; i < ev.dataTransfer.files.length; i++) {
 
-              console.log("else", ev.dataTransfer.files[i])
-              this.setState({
-                uploads: [...this.state.uploads, file]
-            })
+                console.log("else", ev.dataTransfer.files[i])
+                this.setState({
+                    uploads: [...this.state.uploads, file]
+                })
 
             }
-          }
+        }
     }
     handleDrag = () => {
         event.preventDefault()
-      
+
     }
     handleFinnish = () => {
 
