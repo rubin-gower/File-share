@@ -564,6 +564,15 @@ var Upload = /*#__PURE__*/function (_React$Component) {
       toatalSize: 0
     });
 
+    _defineProperty(_assertThisInitialized(_this), "eventFunction", function (e) {
+      if (_this.state.uploads.length > 0) {
+        var confirmationMessage = 'You did not upload your files ' + 'If you leave before uploading, your will have to reupload.';
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+
+        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+      }
+    });
+
     _defineProperty(_assertThisInitialized(_this), "handleChange", function () {
       console.log("file uploaded"); //console.log(event.target.files[0])
 
@@ -633,6 +642,16 @@ var Upload = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(Upload, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      window.addEventListener("beforeunload", this.eventFunction);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      window.removeEventListener("beforeunload", this.eventFunction);
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "upload", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

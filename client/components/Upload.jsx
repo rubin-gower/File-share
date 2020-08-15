@@ -7,15 +7,23 @@ class Upload extends React.Component {
         toatalSize: 0,
     }
 
-    // componentDidMount() {
-    //     window.addEventListener("beforeunload", function (e) {
-    //         var confirmationMessage = 'You did not upload your files '
-    //             + 'If you leave before uploading, your will have to reupload.';
-    //         (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-    //         return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-    //     });
-    // }
+    componentDidMount() {
+        window.addEventListener("beforeunload", this.eventFunction)
+    }
 
+    componentWillUnmount() {
+        window.removeEventListener("beforeunload", this.eventFunction)
+    }
+    eventFunction = (e) => {
+        if (this.state.uploads.length > 0) {
+            var confirmationMessage = 'You did not upload your files '
+                + 'If you leave before uploading, your will have to reupload.';
+            (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+         
+
+            return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+        }
+    }
     handleChange = () => {
         console.log("file uploaded")
         //console.log(event.target.files[0])
