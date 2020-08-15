@@ -18,7 +18,7 @@ class App extends React.Component {
    <Router>
      app | <Link to="/">Home</Link> <br></br>
     <Route  exact path="/Camera" component={Camera}/>
-    <Route  exact path="/Download" component={Download}/>
+    <Route  exact path="/Download/:id" component={Download}/>
     <Route  exact path="/Upload" component={Upload}/>
     
     <Route  exact path="/" component={Home}/>
