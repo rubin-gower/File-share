@@ -567,8 +567,14 @@ var Upload = /*#__PURE__*/function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "handleChange", function () {
       console.log("file uploaded"); //console.log(event.target.files[0])
 
+      var files = [];
+
+      for (var i = 0; i < event.target.files.length; i++) {
+        files.push(event.target.files[i]);
+      }
+
       _this.setState({
-        uploads: [].concat(_toConsumableArray(_this.state.uploads), [event.target.files[0]])
+        uploads: [].concat(_toConsumableArray(_this.state.uploads), files)
       });
     });
 

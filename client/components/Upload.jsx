@@ -19,8 +19,12 @@ class Upload extends React.Component {
     handleChange = () => {
         console.log("file uploaded")
         //console.log(event.target.files[0])
+        let files=[]
+        for (let i = 0; i < event.target.files.length; i++) {
+            files.push(event.target.files[i])
+        }
         this.setState({
-            uploads: [...this.state.uploads, event.target.files[0]]
+            uploads: [...this.state.uploads, ...files]
         })
     }
     handleDrop = () => {
