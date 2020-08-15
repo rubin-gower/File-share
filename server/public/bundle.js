@@ -560,16 +560,78 @@ var Upload = /*#__PURE__*/function (_React$Component) {
     _this = _super.call.apply(_super, [this].concat(args));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      uploads: []
+      uploads: [],
+      toatalSize: 0
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "eventFunction", function (e) {
+      if (_this.state.uploads.length > 0) {
+        var confirmationMessage = 'You did not upload your files ' + 'If you leave before uploading, your will have to reupload.';
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+
+        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleChange", function () {
-      console.log("file uploaded");
-      console.log(event.target.files[0]);
+      console.log("file uploaded"); //console.log(event.target.files[0])
+
+      var files = [];
+
+      for (var i = 0; i < event.target.files.length; i++) {
+        var names = _this.state.uploads.map(function (elem) {
+          return elem.name;
+        });
+
+        if (names.includes(event.target.files[i].name)) alert("multiple files cant have the same name");else {
+          files.push(event.target.files[i]);
+        }
+      }
 
       _this.setState({
-        uploads: [].concat(_toConsumableArray(_this.state.uploads), [event.target.files[0]])
+        uploads: [].concat(_toConsumableArray(_this.state.uploads), files)
       });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleDrop", function () {
+      event.preventDefault();
+      console.log("droped files");
+
+      if (event.dataTransfer.items) {
+        // Use DataTransferItemList interface to access the file(s)
+        var files = [];
+
+        for (var i = 0; i < event.dataTransfer.items.length; i++) {
+          var _file = event.dataTransfer.items[i].getAsFile();
+
+          if (event.dataTransfer.items[i].kind === 'file') {
+            var names = _this.state.uploads.map(function (elem) {
+              return elem.name;
+            });
+
+            if (names.includes(_file.name)) alert("multiple files cant have the same name");else {
+              files.push(_file);
+            }
+          }
+        }
+
+        _this.setState({
+          uploads: [].concat(_toConsumableArray(_this.state.uploads), files)
+        });
+      } else {
+        // Use DataTransfer interface to access the file(s)
+        for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+          console.log("else", ev.dataTransfer.files[i]);
+
+          _this.setState({
+            uploads: [].concat(_toConsumableArray(_this.state.uploads), [file])
+          });
+        }
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleDrag", function () {
+      event.preventDefault();
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleFinnish", function () {
@@ -580,9 +642,23 @@ var Upload = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(Upload, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      window.addEventListener("beforeunload", this.eventFunction);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      window.removeEventListener("beforeunload", this.eventFunction);
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "upload", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "upload", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "drop-zone",
+        onDrop: this.handleDrop,
+        onDragOver: this.handleDrag
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Drag files")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "file",
         id: "file-input",
         multiple: true,
@@ -593,7 +669,7 @@ var Upload = /*#__PURE__*/function (_React$Component) {
         className: "uploads"
       }, this.state.uploads.map(function (elem, i) {
         console.log(elem.type);
-        console.log(elem.type.includes("image"));
+        console.log(elem); //console.log((elem.type).includes("image"))
 
         if (elem.type.includes("image")) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
