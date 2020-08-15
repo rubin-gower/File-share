@@ -6,7 +6,7 @@ class Upload extends React.Component {
         uploads: [],
         toatalSize: 0,
     }
-
+    
     componentDidMount() {
         window.addEventListener("beforeunload", this.eventFunction)
     }

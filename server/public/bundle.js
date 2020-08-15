@@ -327,7 +327,10 @@ var Download = /*#__PURE__*/function (_React$Component) {
   _createClass(Download, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "download");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "download", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "./storage/example.jpg",
+        download: "newName"
+      }, "test download"));
     }
   }]);
 
@@ -408,7 +411,7 @@ var Home = /*#__PURE__*/function (_React$Component) {
       }, "Upload")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "download-button"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/Camera"
+        to: "/Download"
       }, "Download")));
     }
   }]);
