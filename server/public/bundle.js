@@ -639,6 +639,8 @@ var Upload = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "handleFinnish", function () {
       console.log(_this.state.uploads);
+
+      _this.props.history.push("/LinkPage");
     });
 
     return _this;

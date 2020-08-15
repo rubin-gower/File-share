@@ -5,6 +5,7 @@ class LinkPage extends React.Component {
     render() { 
         return ( <>
         linkpage
+        
         </> );
     }
 }

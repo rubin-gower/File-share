@@ -1,12 +1,13 @@
 import React from 'react';
 import { HashRouter as Router, Route, Link, Redirect } from "react-router-dom"
 
+
 class Upload extends React.Component {
     state = {
         uploads: [],
         toatalSize: 0,
     }
-    
+
     componentDidMount() {
         window.addEventListener("beforeunload", this.eventFunction)
     }
@@ -84,6 +85,7 @@ class Upload extends React.Component {
     handleFinnish = () => {
 
         console.log(this.state.uploads)
+        this.props.history.push("/LinkPage");
     }
     render() {
         return (<>
