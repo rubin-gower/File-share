@@ -3,7 +3,8 @@ import { HashRouter as Router, Route, Link, Redirect } from "react-router-dom"
 
 class Upload extends React.Component {
     state = {
-        uploads: []
+        uploads: [],
+        toatalSize: 0,
     }
 
     // componentDidMount() {
@@ -17,13 +18,41 @@ class Upload extends React.Component {
 
     handleChange = () => {
         console.log("file uploaded")
-        console.log(event.target.files[0])
+        //console.log(event.target.files[0])
         this.setState({
             uploads: [...this.state.uploads, event.target.files[0]]
         })
     }
     handleDrop = () => {
         event.preventDefault()
+        console.log("droped files")
+        if (event.dataTransfer.items) {
+            // Use DataTransferItemList interface to access the file(s)
+            let files=[]
+            for (var i = 0; i < event.dataTransfer.items.length; i++) {
+              if (event.dataTransfer.items[i].kind === 'file') {
+                files.push(event.dataTransfer.items[i].getAsFile())
+              }
+            }
+            this.setState({
+                uploads: [...this.state.uploads, ...files]
+            })
+    
+          } else {
+            // Use DataTransfer interface to access the file(s)
+            for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+
+              console.log("else", ev.dataTransfer.files[i])
+              this.setState({
+                uploads: [...this.state.uploads, file]
+            })
+
+            }
+          }
+    }
+    handleDrag = () => {
+        event.preventDefault()
+      
     }
     handleFinnish = () => {
 
@@ -32,14 +61,15 @@ class Upload extends React.Component {
     render() {
         return (<>
             upload
-            <div id="drop_zone" onDrop={this.handleDrop}>
-                <p>Drag one or more files to this Drop Zone ...</p>
+            <div id="drop-zone" onDrop={this.handleDrop} onDragOver={this.handleDrag}>
+                <p>Drag files</p>
             </div>
             <input type="file" id="file-input" multiple onChange={this.handleChange} />
             <button onClick={this.handleFinnish}>Done</button>
             <div className="uploads">{this.state.uploads.map((elem, i) => {
                 console.log(elem.type)
-                console.log((elem.type).includes("image"))
+                console.log(elem)
+                //console.log((elem.type).includes("image"))
                 if ((elem.type).includes("image")) {
 
                     return <div key={i} className="file"> <img src={URL.createObjectURL(elem)} alt="ur img" className="img-file" /> {elem.name}</div>

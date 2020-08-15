@@ -560,12 +560,12 @@ var Upload = /*#__PURE__*/function (_React$Component) {
     _this = _super.call.apply(_super, [this].concat(args));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      uploads: []
+      uploads: [],
+      toatalSize: 0
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleChange", function () {
-      console.log("file uploaded");
-      console.log(event.target.files[0]);
+      console.log("file uploaded"); //console.log(event.target.files[0])
 
       _this.setState({
         uploads: [].concat(_toConsumableArray(_this.state.uploads), [event.target.files[0]])
@@ -573,6 +573,35 @@ var Upload = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleDrop", function () {
+      event.preventDefault();
+      console.log("droped files");
+
+      if (event.dataTransfer.items) {
+        // Use DataTransferItemList interface to access the file(s)
+        var files = [];
+
+        for (var i = 0; i < event.dataTransfer.items.length; i++) {
+          if (event.dataTransfer.items[i].kind === 'file') {
+            files.push(event.dataTransfer.items[i].getAsFile());
+          }
+        }
+
+        _this.setState({
+          uploads: [].concat(_toConsumableArray(_this.state.uploads), files)
+        });
+      } else {
+        // Use DataTransfer interface to access the file(s)
+        for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+          console.log("else", ev.dataTransfer.files[i]);
+
+          _this.setState({
+            uploads: [].concat(_toConsumableArray(_this.state.uploads), [file])
+          });
+        }
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleDrag", function () {
       event.preventDefault();
     });
 
@@ -587,9 +616,10 @@ var Upload = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "upload", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "drop_zone",
-        onDrop: this.handleDrop
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Drag one or more files to this Drop Zone ...")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        id: "drop-zone",
+        onDrop: this.handleDrop,
+        onDragOver: this.handleDrag
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Drag files")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "file",
         id: "file-input",
         multiple: true,
@@ -600,7 +630,7 @@ var Upload = /*#__PURE__*/function (_React$Component) {
         className: "uploads"
       }, this.state.uploads.map(function (elem, i) {
         console.log(elem.type);
-        console.log(elem.type.includes("image"));
+        console.log(elem); //console.log((elem.type).includes("image"))
 
         if (elem.type.includes("image")) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
