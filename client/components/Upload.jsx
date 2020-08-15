@@ -22,6 +22,9 @@ class Upload extends React.Component {
             uploads: [...this.state.uploads, event.target.files[0]]
         })
     }
+    handleDrop = () => {
+        event.preventDefault()
+    }
     handleFinnish = () => {
 
         console.log(this.state.uploads)
@@ -29,20 +32,22 @@ class Upload extends React.Component {
     render() {
         return (<>
             upload
-
+            <div id="drop_zone" onDrop={this.handleDrop}>
+                <p>Drag one or more files to this Drop Zone ...</p>
+            </div>
             <input type="file" id="file-input" multiple onChange={this.handleChange} />
             <button onClick={this.handleFinnish}>Done</button>
             <div className="uploads">{this.state.uploads.map((elem, i) => {
                 console.log(elem.type)
                 console.log((elem.type).includes("image"))
                 if ((elem.type).includes("image")) {
-                   
-                    return <div key={i} className="file"> <img src={URL.createObjectURL(elem)} alt="ur img" className="img-file"/> {elem.name}</div>
+
+                    return <div key={i} className="file"> <img src={URL.createObjectURL(elem)} alt="ur img" className="img-file" /> {elem.name}</div>
                 }
                 else {
                     return <div key={i} className="file"> {elem.name}</div>
                 }
-                
+
             })}</div>
         </>);
     }

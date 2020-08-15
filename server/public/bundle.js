@@ -572,6 +572,10 @@ var Upload = /*#__PURE__*/function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "handleDrop", function () {
+      event.preventDefault();
+    });
+
     _defineProperty(_assertThisInitialized(_this), "handleFinnish", function () {
       console.log(_this.state.uploads);
     });
@@ -582,7 +586,10 @@ var Upload = /*#__PURE__*/function (_React$Component) {
   _createClass(Upload, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "upload", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "upload", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "drop_zone",
+        onDrop: this.handleDrop
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Drag one or more files to this Drop Zone ...")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "file",
         id: "file-input",
         multiple: true,
