@@ -1,4 +1,5 @@
 const connection = require('./connection')
+const { select } = require('./connection')
 
 module.exports = {
     saveFile,
@@ -12,9 +13,11 @@ function saveFile(file, db = connection) {
     .insert(file)
 }
 
-function getFile(id, db = connection) {
+function getFiles(id, db = connection) {
     // console.log("data base: geting id from game")
     //return db('game').where("game_id", id)
+    return db('files')
+    .select().where("id", id)
 }
 
 function delFile(id, db = connection) {
@@ -22,4 +25,4 @@ function delFile(id, db = connection) {
     //return db('game').where("game_id", id)
 }
 //am just seting up db functions and route api stuff now. there is no super agent yet.
-//working on getfile
+//working on getfiles
