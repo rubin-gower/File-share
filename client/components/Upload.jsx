@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Route, Link, Redirect } from "react-router-dom"
+import {saveFile} from "../api/api"
 import LinkPage from "./LinkPage"
 
 class Upload extends React.Component {
@@ -102,6 +103,11 @@ class Upload extends React.Component {
         console.log(this.state.uploads)
        // this.props.history.push(`/LinkPage/${id}`);
        this.setState({done: true})
+        let data = {
+            location: this.state.uploads[0].name,
+            id: id
+        }
+       saveFile(data).then(()=>{console.log("savefile api call")})
     }
     render() {
         return (<>

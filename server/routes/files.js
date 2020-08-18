@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const db = require("../db/files")
 
-router.post('/', (req, res) => {
+router.put('/', (req, res) => {
     // console.log(`route recived`, req.body)
     console.log("body: ", req.body)
    
