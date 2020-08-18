@@ -3,9 +3,6 @@ const connection = require('./connection')
 
 module.exports = {
     saveFile,
-    // getFiles,
-    // delFile,
-  
 }
 
 function saveFile(file, db = connection) {
@@ -13,6 +10,7 @@ function saveFile(file, db = connection) {
     return db('files')
     .insert(file)
 }
+
 
 
 // function getFiles(id, db = connection) {
