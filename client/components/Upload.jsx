@@ -96,7 +96,7 @@ class Upload extends React.Component {
     }
     handleDrag = () => {
         event.preventDefault()
-
+        
     }
     handleFinnish = () => {
         let id = this.createUrl()
