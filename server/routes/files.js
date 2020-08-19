@@ -18,20 +18,24 @@ router.put('/', (req, res) => {
             res.status(500).send(error.messge)
         })
     st.createFolder(req.body.id)
+    st.saveFile("hello")
 })
 
 router.get('/:id', (req, res) => {
     // console.log(`route recived`, req.body)
-    console.log("body: ", req.props.id)
-    db.getFiles(req.props.id)
-        .then(file => {
-            res.send(file)
-        })
-        .catch(error => {
-            console.log(error.message);
+    console.log("body: ", req.params.id)
+    // db.getFiles(req.props.id)
+    //     .then(file => {
+    //         res.send(file)
+    //     })
+    //     .catch(error => {
+    //         console.log(error.message);
             
-            res.status(500).send(error.messge)
-        })
+    //         res.status(500).send(error.messge)
+    //     })
+    
+    res.send(st.readFolder(req.params.id))
+    //res.sendFile()
 })
 
 module.exports = router
