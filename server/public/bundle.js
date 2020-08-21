@@ -90,12 +90,13 @@
 /*!***************************!*\
   !*** ./client/api/api.js ***!
   \***************************/
-/*! exports provided: saveFile */
+/*! exports provided: saveFile, saveFileV2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveFile", function() { return saveFile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveFileV2", function() { return saveFileV2; });
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -104,6 +105,15 @@ function saveFile(file) {
   // console.log(host)
   return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.put("api/files").send(file).then(function (res) {
     return res.body;
+  });
+}
+function saveFileV2(file) {
+  // console.log('from addHostApi')
+  // console.log(host)
+  axios.post("api/files", data, {// receive two parameter endpoint url ,form data 
+  }).then(function (res) {
+    // then print response status
+    console.log(res.statusText);
   });
 }
 
@@ -690,11 +700,14 @@ var Upload = /*#__PURE__*/function (_React$Component) {
 
       var data = {
         location: _this.state.uploads[0].name,
-        id: id
+        id: id,
+        files: _this.state.uploads
       };
+      console.log("new log", _this.state.uploads);
       Object(_api_api__WEBPACK_IMPORTED_MODULE_2__["saveFile"])(data).then(function () {
         console.log("savefile api call");
       });
+      Object(_api_api__WEBPACK_IMPORTED_MODULE_2__["saveFileV2"])(_this.state.uploads);
     });
 
     return _this;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Route, Link, Redirect } from "react-router-dom"
-import {saveFile} from "../api/api"
+import {saveFile, saveFileV2} from "../api/api"
 import LinkPage from "./LinkPage"
 
 class Upload extends React.Component {
@@ -10,7 +10,7 @@ class Upload extends React.Component {
         done: false,
         rndURL: "",
     }
-
+    
     componentDidMount() {
         window.addEventListener("beforeunload", this.eventFunction)
     }
@@ -96,7 +96,7 @@ class Upload extends React.Component {
     }
     handleDrag = () => {
         event.preventDefault()
-        
+
     }
     handleFinnish = () => {
         let id = this.createUrl()
@@ -105,9 +105,13 @@ class Upload extends React.Component {
        this.setState({done: true})
         let data = {
             location: this.state.uploads[0].name,
-            id: id
+            id: id,
+            files: this.state.uploads
         }
+        console.log("new log", this.state.uploads)
        saveFile(data).then(()=>{console.log("savefile api call")})
+        saveFileV2(this.state.uploads)
+
     }
     render() {
         return (<>

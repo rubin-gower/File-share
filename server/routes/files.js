@@ -8,17 +8,18 @@ router.put('/', (req, res) => {
     // console.log(`route recived`, req.body)
     console.log("body: ", req.body)
    
-    db.saveFile(req.body)
-        .then(file => {
-            res.send(file)
-        })
-        .catch(error => {
-            console.log(error.message);
+    // db.saveFile(req.body)
+    //     .then(file => {
+    //         res.send(file)
+    //     })
+    //     .catch(error => {
+    //         console.log(error.message);
             
-            res.status(500).send(error.messge)
-        })
-    st.createFolder(req.body.id)
-    st.saveFile("hello")
+    //         res.status(500).send(error.messge)
+    //     })
+    console.log("your files", req.body.files)
+    // st.createFolder(req.body.id)
+    // st.saveFile("hello")
 })
 
 router.get('/:id', (req, res) => {
