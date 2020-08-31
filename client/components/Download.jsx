@@ -7,6 +7,7 @@ class Download extends React.Component {
         
         <a href="./storage/example.jpg" download="newName">test download</a>
         {console.log(this.props.match.params.id)}
+        
         </> )
     }
 }

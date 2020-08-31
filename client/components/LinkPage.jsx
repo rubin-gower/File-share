@@ -1,15 +1,17 @@
 import React from 'react';
-
+let QRCode = require('qrcode.react');
 class LinkPage extends React.Component {
-    state = {  }
+    state = { 
+        url: window.location.origin +"/#/Download/"+ this.props.rndURL
+     }
     render() { 
         return ( <>
         linkpage
       
        
         {console.log( window.location.origin )}
-        link: <a href={window.location.origin +"/#/Download/"+ this.props.rndURL}>{window.location.origin +"/#/Download/"+ this.props.rndURL}</a> 
-        
+        link: <a href={this.state.url}>{this.state.url}</a> 
+        <QRCode value={this.state.url}/>
         </> );
     }
 }
