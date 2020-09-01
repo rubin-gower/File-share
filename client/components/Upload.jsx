@@ -25,7 +25,7 @@ class Upload extends React.Component {
         for(let i=0; i<10;i++) {
             newUrl += chars.charAt(Math.floor(Math.random()* chars.length) )
         }
-        console.log(newUrl)
+        // console.log(newUrl)
         this.setState({rndURL: newUrl})
        return newUrl
        
@@ -42,7 +42,7 @@ class Upload extends React.Component {
         }
     }
     handleChange = () => {
-        console.log("file uploaded")
+        // console.log("file uploaded")
         //console.log(event.target.files[0])
         let files = []
         for (let i = 0; i < event.target.files.length; i++) {
@@ -61,7 +61,7 @@ class Upload extends React.Component {
     }
     handleDrop = () => {
         event.preventDefault()
-        console.log("droped files")
+        // console.log("droped files")
         if (event.dataTransfer.items) {
             // Use DataTransferItemList interface to access the file(s)
             let files = []
@@ -86,7 +86,7 @@ class Upload extends React.Component {
             // Use DataTransfer interface to access the file(s)
             for (var i = 0; i < ev.dataTransfer.files.length; i++) {
 
-                console.log("else", ev.dataTransfer.files[i])
+                // console.log("else", ev.dataTransfer.files[i])
                 this.setState({
                     uploads: [...this.state.uploads, file]
                 })
@@ -96,11 +96,10 @@ class Upload extends React.Component {
     }
     handleDrag = () => {
         event.preventDefault()
-
     }
     handleFinnish = () => {
         let id = this.createUrl()
-        console.log(this.state.uploads)
+        // console.log(this.state.uploads)
        // this.props.history.push(`/LinkPage/${id}`);
        this.setState({done: true})
         let data = {
@@ -108,9 +107,12 @@ class Upload extends React.Component {
             id: id,
             files: this.state.uploads
         }
-        console.log("new log", this.state.uploads)
-       saveFile(data).then(()=>{console.log("savefile api call")})
+        // console.log("new log", this.state.uploads)
+       saveFile(data)
+       .then(()=>{console.log("savefile api call")})
+
         saveFileV2(this.state.uploads)
+        .then(()=>{console.log("savefile2 api call")})
 
     }
     render() {
@@ -125,8 +127,8 @@ class Upload extends React.Component {
             <input type="file" id="file-input" multiple onChange={this.handleChange} />
             <button onClick={this.handleFinnish}>Done</button>
             <div className="uploads">{this.state.uploads.map((elem, i) => {
-                console.log(elem.type)
-                console.log(elem)
+                // console.log(elem.type)
+                // console.log(elem)
                 //console.log((elem.type).includes("image"))
                 if ((elem.type).includes("image")) {
 
