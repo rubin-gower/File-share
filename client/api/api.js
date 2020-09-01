@@ -1,5 +1,6 @@
 import request from "superagent"
-import axios from "axois"
+import axios from "axios"
+
 export function saveFile(file) {
     // console.log('from addHostApi')
     // console.log(host)
