@@ -9,7 +9,7 @@ class LinkPage extends React.Component {
         linkpage
       
        
-        {console.log( window.location.origin )}
+        {/* {console.log( window.location.origin )} */}
         link: <a href={this.state.url}>{this.state.url}</a> 
         <QRCode value={this.state.url}/>
         </> );

@@ -99,6 +99,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveFileV2", function() { return saveFileV2; });
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_0__);
+!(function webpackMissingModule() { var e = new Error("Cannot find module 'axois'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+
 
 function saveFile(file) {
   // console.log('from addHostApi')
@@ -110,7 +112,7 @@ function saveFile(file) {
 function saveFileV2(file) {
   // console.log('from addHostApi')
   // console.log(host)
-  axios.post("api/files", data, {// receive two parameter endpoint url ,form data 
+  !(function webpackMissingModule() { var e = new Error("Cannot find module 'axois'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()).post("api/files", data, {// receive two parameter endpoint url ,form data 
   }).then(function (res) {
     // then print response status
     console.log(res.statusText);
@@ -182,8 +184,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call.apply(_super, [this].concat(args));
 
-    _defineProperty(_assertThisInitialized(_this), "handleChange", function () {
-      console.log(event.target.value);
+    _defineProperty(_assertThisInitialized(_this), "handleChange", function () {//console.log(event.target.value)
     });
 
     return _this;
@@ -357,7 +358,7 @@ var Download = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "download", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "./storage/example.jpg",
         download: "newName"
-      }, "test download"), console.log(this.props.match.params.id));
+      }, "test download"));
     }
   }]);
 
@@ -515,7 +516,7 @@ var LinkPage = /*#__PURE__*/function (_React$Component) {
   _createClass(LinkPage, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "linkpage", console.log(window.location.origin), "link: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "linkpage", "link: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: this.state.url
       }, this.state.url), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(QRCode, {
         value: this.state.url
@@ -614,9 +615,8 @@ var Upload = /*#__PURE__*/function (_React$Component) {
 
       for (var i = 0; i < 10; i++) {
         newUrl += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
+      } // console.log(newUrl)
 
-      console.log(newUrl);
 
       _this.setState({
         rndURL: newUrl
@@ -635,8 +635,8 @@ var Upload = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleChange", function () {
-      console.log("file uploaded"); //console.log(event.target.files[0])
-
+      // console.log("file uploaded")
+      //console.log(event.target.files[0])
       var files = [];
 
       for (var i = 0; i < event.target.files.length; i++) {
@@ -655,8 +655,7 @@ var Upload = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleDrop", function () {
-      event.preventDefault();
-      console.log("droped files");
+      event.preventDefault(); // console.log("droped files")
 
       if (event.dataTransfer.items) {
         // Use DataTransferItemList interface to access the file(s)
@@ -682,8 +681,7 @@ var Upload = /*#__PURE__*/function (_React$Component) {
       } else {
         // Use DataTransfer interface to access the file(s)
         for (var i = 0; i < ev.dataTransfer.files.length; i++) {
-          console.log("else", ev.dataTransfer.files[i]);
-
+          // console.log("else", ev.dataTransfer.files[i])
           _this.setState({
             uploads: [].concat(_toConsumableArray(_this.state.uploads), [file])
           });
@@ -696,9 +694,9 @@ var Upload = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleFinnish", function () {
-      var id = _this.createUrl();
+      var id = _this.createUrl(); // console.log(this.state.uploads)
+      // this.props.history.push(`/LinkPage/${id}`);
 
-      console.log(_this.state.uploads); // this.props.history.push(`/LinkPage/${id}`);
 
       _this.setState({
         done: true
@@ -708,12 +706,14 @@ var Upload = /*#__PURE__*/function (_React$Component) {
         location: _this.state.uploads[0].name,
         id: id,
         files: _this.state.uploads
-      };
-      console.log("new log", _this.state.uploads);
+      }; // console.log("new log", this.state.uploads)
+
       Object(_api_api__WEBPACK_IMPORTED_MODULE_2__["saveFile"])(data).then(function () {
         console.log("savefile api call");
       });
-      Object(_api_api__WEBPACK_IMPORTED_MODULE_2__["saveFileV2"])(_this.state.uploads);
+      Object(_api_api__WEBPACK_IMPORTED_MODULE_2__["saveFileV2"])(_this.state.uploads).then(function () {
+        console.log("savefile2 api call");
+      });
     });
 
     return _this;
@@ -748,9 +748,9 @@ var Upload = /*#__PURE__*/function (_React$Component) {
       }, "Done"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "uploads"
       }, this.state.uploads.map(function (elem, i) {
-        console.log(elem.type);
-        console.log(elem); //console.log((elem.type).includes("image"))
-
+        // console.log(elem.type)
+        // console.log(elem)
+        //console.log((elem.type).includes("image"))
         if (elem.type.includes("image")) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             key: i,

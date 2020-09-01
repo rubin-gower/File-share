@@ -10,7 +10,7 @@ class App extends React.Component {
   
 
   handleChange = () => {
-    console.log(event.target.value)
+    //console.log(event.target.value)
   }
   render(){
   return (
